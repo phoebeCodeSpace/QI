@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { State, Action, Getter } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 import { formatTime } from '@/filters/formatTime';
 
 @Component({
@@ -24,14 +24,14 @@ import { formatTime } from '@/filters/formatTime';
   }
 })
 export default class Audio extends Vue {
-  @State('current') current: number;
+  @State('current') current!: number;
   @Action('updateCurrent') updateCurrent:any;
 
   @Prop({default: './music.mp4'})
-  source:string;
+  private source!:string;
 
   @Prop()
-  duration:number;
+  duration!:number;
 
   play: boolean = true;
  

@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Vue } from 'vue-property-decorator';
+import { Component, Watch, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 import {formatTime} from '@/filters/formatTime';
 interface conversation {
@@ -47,7 +47,7 @@ export default class Conversation extends Vue {
   totalConversationArr:Array<conversation> = [];
   conversationArr:Array<conversation> = [];
 
-  @State('current') current: number;
+  @State('current') current!: number;
 
   @Watch('service')
   serviceChanged(val:Array<conversation> , oldVal: Array<conversation>) {

@@ -7,12 +7,12 @@ interface StateProp {
   current: number;
 }
 
-
+const StoreState: StateProp = {
+  current: 0,
+};
 
 export default new Vuex.Store({
-  state: {
-    current: 0,
-  },
+  state: StoreState,
   mutations: {
     updateCurrent(state, payload: number) {
       state.current = payload;
