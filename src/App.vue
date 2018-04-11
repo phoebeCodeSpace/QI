@@ -22,7 +22,7 @@ export default class App extends Vue {}
 @import './styles/reset.scss';
 #app{
   width: 1200px;
-  margin: 10px auto;
+  padding: 10px 0;
   height: 100vh;
 }
 </style>
