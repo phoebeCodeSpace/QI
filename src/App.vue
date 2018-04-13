@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <!-- <Tab/> -->
-    </div>
     <router-view/>
   </div>
 </template>
@@ -10,20 +7,20 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Tab from '@/components/Tab.vue';
 
-@Component({
-  components: {
-    Tab,
-  },
-})
+@Component
 export default class App extends Vue {}
 </script>
 
 <style lang="scss">
 @import './styles/reset.scss';
+
 #app{
-  width: 1200px;
-  padding: 10px 0;
+  // display: flex;
+  // justify-items: center;
+  width: 1450px;
+  padding: 157px 0;
   margin: 0 auto;
   height: 100vh;
+
 }
 </style>

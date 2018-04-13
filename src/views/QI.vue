@@ -1,72 +1,69 @@
 <template>
-  <div class="show-content flex-center">    
-      <div>
-        <Audio 
-          :duration="sourceDuration"
-        />
-        <div class="show-content">
-          <Conversation 
-            :service="serviceArr"
-            :customer="customerArr"
-          />
-          <Comment/>      
-        </div>        
-      </div>
-      <Description/> 
+  <div class="qi-wrap ">
+    <List :list="voiceList"/>
+    <div class="content">
+      <router-view></router-view>
+    </div>
+    <Description/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'vue-property-decorator';
-import Conversation from "@/components/Conversation.vue";
-import Audio from "@/components/Audio.vue";
-import Comment from "@/components/Comment.vue";
 import Description from "@/components/Description.vue";
+import List from "@/components/List.vue";
 import axios from 'axios';
 
-interface conversation {
-  text: string;
-  start: number;
-  end: number;
-}
+
 
 @Component({
   name: 'QI',
   components: {
-    Conversation,
-    Audio,
-    Comment,
-    Description
+    Description,
+    List
   }
 })
 export default class QI extends Vue {
+  voiceList: Array<string> = [];
 
-  serviceArr:  Array<conversation> = [];
-  customerArr:  Array<conversation> = [];
-  source: string = '';
-  sourceDuration: number = 0;
+  getVoiceList(){
+    const title: string = this.$route.params.title;
+    const self = this;
+    
+    axios.get('/Index/Demo/getVoiceList')
+    .then((response) => {
+      this.voiceList = response.data.data;
+      // title==='test' && 
+      !title && 
+      this.$router.push({ name: 'QICoversation', params: { title: this.voiceList[0] }})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   mounted () {
-    const self = this;
-    axios.get('/api')
-      .then(function (response) {
-        const data = response.data;
-        self.serviceArr = data.msg_n0;
-        self.customerArr = data.msg_n1;
-        // self.source = data.info.waveuri;
-        self.sourceDuration = data.info.duration;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.getVoiceList();
+    setInterval(()=>{
+      this.getVoiceList();
+    },5000)
   }
 }
 </script>
 <style lang="scss">
-.flex-center{
-  align-items: center;
+@import '../styles/mixin.scss';
+
+.qi-wrap {
+  @include center-flex();
+  .content{
+    width: 840px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.21);
+    border-radius: 5px;
+    overflow: hidden;
+  }
 }
 .show-content{
   display: flex;
+  background-color: #fff;
 }
 </style>

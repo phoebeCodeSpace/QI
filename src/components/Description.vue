@@ -26,16 +26,16 @@ export default class Description extends Vue {
 <style scoped lang="scss">
 @import '../styles/vars.scss';
 .description-box{
-  padding-left: 50px;
+  padding-left: 40px;
 }
 h5{
   font-size: 18px;
   font-weight: normal;
   color: $primary-color;
-  margin: 20px 0 10px;
+  margin: 56px 0 10px;
 }
 p{
-  color: #999;
-  margin: 10px 0 20px;  
+  color: #9B9B9B;
+  margin: 10px 0 56px;  
 }
 </style>

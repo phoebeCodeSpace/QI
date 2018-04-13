@@ -30,14 +30,15 @@ export default class Comment extends Vue {
 </script>
 
 <style lang="scss">
-@import '../styles/vars.scss';
+@import '../styles/mixin.scss';
 
 .comment-box{
-  // float: right;
-  border-left: 1px dashed $primary-color;
+  background:  #FCFCFC;
+  flex: 1;
+  border-left: 1px dashed $border-color-light;
   padding: 20px;
   h2,p{
-    color: $primary-color;
+    color:$text-subsidiary;
   }
   h2{
     font-size: 16px;
@@ -52,18 +53,25 @@ export default class Comment extends Vue {
     span{
       font-size: 12px;
     }
-    input{
-      width: 120px;
+    input,textarea{
       padding: 5px;      
-      border-bottom: 1px solid $primary-color;
+      font-size: 14px;  
+      color: $text-primary;    
+      background-color: transparent;
+    }
+    input{
+      width: 120px;    
+      border-bottom: 1px solid $border-color-normal;
     }
     textarea{
       width: 100%;
-      border: 1px solid $primary-color;
+      border: 1px solid $border-color-normal;
       border-radius: 4px;
-      padding: 5px;
       margin-top: 5px;
     }
+  }
+  .total{
+    color: $primary-color;
   }
   .save{
     text-align: right;
@@ -73,9 +81,11 @@ export default class Comment extends Vue {
     background:$primary-color;
     color: #fff;
     border-radius: 4px;
-    padding: 8px 10px;
+    padding: 8px 14px;
     cursor: pointer;
     transition: all linear .3s;
+    font-size: 14px;
+    font-weight: 200;
     &:hover{
       background: mix($primary-color, #fff, 85%);
     }

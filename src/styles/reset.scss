@@ -7,7 +7,8 @@ body {
     line-height: 1.5;
     color: #333;
     font-size: 14px;
-    font-family: 'microsoft yahei'
+    font-family: 'microsoft yahei';
+    background: #F5F5F5;
 }
 
 * {
@@ -51,4 +52,46 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+}
+/*滚动条样式*/
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background: #D1D3D6;
+}
+
+::-webkit-scrollbar-track {
+    // -webkit-box-shadow: inset 0 0 5px #D1D3D6;;
+    border-radius: 12px;
+    background: transparent;
+}
+
+::-moz-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-moz-scrollbar-thumb {
+    border-radius: 12px;
+    background: #D1D3D6;;
+}
+
+::-moz-scrollbar-track {
+    // -webkit-box-shadow: inset 0 0 5px #D1D3D6;;
+    border-radius: 12px;
+    background: transparent;
+}
+
+html {
+    scrollbar-arrow-color: #D1D3D6;; // 箭头
+    scrollbar-face-color: #D1D3D6;; // scrollbar
+    scrollbar-highlight-color: #D1D3D6;;
+    scrollbar-shadow-color: #D1D3D6;;
+    scrollbar-shadow-color: #D1D3D6;; // scrollbar-border
+    scrollbar-track-color: #fafafa; // track
 }

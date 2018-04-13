@@ -1,0 +1,66 @@
+@import './vars.scss';
+
+@mixin size($width, $height:$width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin skin($color, $background-color) {
+    color: $color;
+    background-color: $background-color;
+}
+
+// flex-center 弹性布局居中
+@mixin center-flex($direction: both) {
+    display: flex;
+    @if $direction==both {
+        justify-content: center;
+        align-items: center;
+    }
+    @else if $direction==x {
+        justify-content: center;
+    }
+    @else if $direction==y {
+        align-items: center;
+    }
+}
+
+@mixin ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+%ellipsis {
+    @include ellipsis();
+}
+
+%triangle-basic {
+    content: "";
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+@mixin triangle($direction: top, $borderWidth: 10px, $borderColor: $secondary-color) {
+    @extend %triangle-basic;
+    @if $direction==top {
+        border-bottom: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction==right {
+        border-left: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+    @else if $direction==bottom {
+        border-top: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction==left {
+        border-right: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+}
