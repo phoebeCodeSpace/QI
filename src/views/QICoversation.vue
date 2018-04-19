@@ -1,6 +1,8 @@
 <template>
     <div>
-      <Audio :source="source"/>
+      <Audio :source="source"
+             :duration="duration"
+      />
       <div class="show-content">
         <Conversation 
           :service="serviceArr"
@@ -45,6 +47,7 @@ export default class QICoversation extends Vue {
   serviceArr:  Array<conversation> = [];
   customerArr:  Array<conversation> = [];
   source: string = '';
+  duration: number = 0;
 
   getVoiceContent(title: string){
     axios.get('/Index/Demo/getJson',{
@@ -58,7 +61,7 @@ export default class QICoversation extends Vue {
       // self.customerArr = data.msg_n1;
       console.log(data)
       this.source = `/Index/Demo/downloadVoice?title=${title}`;
-      
+      this.duration = +data.data.info.duration;
       this.serviceArr = data.data.n0.contents;
       this.customerArr = data.data.n1.contents;
     })

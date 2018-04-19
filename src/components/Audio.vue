@@ -13,7 +13,13 @@
         </svg>
        </button>
 
-       <span class="current-time">{{current|formatTime}}</span>
+       <div class="progress-bar">
+        <div class="progress-wrap">
+          <div class="progress-inner" :style="{width:`${progress}%`}"></div>
+        </div>
+        <span class="current-time">{{current|formatTime}}<i></i>{{duration|formatTime}}</span>         
+       </div>
+
        <a class="download" :href="source">
          <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-download"></use>
@@ -42,12 +48,16 @@ export default class Audio extends Vue {
   @Prop({default: ''})
   source!:string;
 
+  @Prop({default: 0})
+  duration:number = 0;
+
   @Watch('showAll')
   showAllChanged(val:boolean){
     const audioElement = this.$refs.audioRecord as HTMLAudioElement;
     audioElement.currentTime = audioElement.duration;
-   
+
     setTimeout(()=>{
+      this.play &&
       this.changeState();      
     },200)
   }
@@ -60,6 +70,7 @@ export default class Audio extends Vue {
   }
 
   play: boolean = false;
+  progress: number = 0;
 
   changeState(){
     const audioElement = this.$refs.audioRecord as HTMLAudioElement;
@@ -71,6 +82,7 @@ export default class Audio extends Vue {
     const audioElement = this.$refs.audioRecord as HTMLAudioElement;
     const currentTime:number = audioElement && audioElement.currentTime * 1000 as number;
     this.updateCurrent(Math.floor(currentTime));
+    this.progress = ((currentTime / this.duration) * 100);
   }
 
   audioPlay(){
@@ -140,6 +152,53 @@ export default class Audio extends Vue {
   width: 100%;
   height: $audio-bar-height;
   background-color: $audio-bar-bg;
+  .progress-bar{
+    position: absolute;
+    @include center-translate(y);
+    left: 102px;
+  }
+  .progress-wrap{
+    display: inline-block;
+    position: relative;
+    @include size(470px,6px);
+    background: #DFE4F5;
+    border-radius: 6px;
+    // overflow: hidden;
+    .progress-inner{
+      position: absolute;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background-color: $primary-color;
+      border-radius: 6px;
+      // transition: width linear .35s;
+      &::after{
+        @include center-translate(y);
+        transform: translate3d(6px, -50%, 0);
+        right: 0;
+        display: inline-block;
+        content: '';
+        @include size(13px);
+        border-radius: 50%;
+        border: 1px solid #fff;
+        background-color: $primary-color;
+      }
+    }
+  }
+  .current-time{
+    margin-left: 16px;
+    font-size: 12px;
+    color: #888A92;;
+    line-height: $audio-bar-height;
+    i{
+      display: inline-block;
+      @include size(1px,12px);
+      background-color:  #CCD2E6;
+      margin: 0 5px;
+      vertical-align: -2px;
+    }
+  }
+
   .action,.download{
     background: $audio-bar-bg;
     position: absolute;
@@ -156,13 +215,6 @@ export default class Audio extends Vue {
   }
   .download{
     right: 36px;
-  }
-  .current-time{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #888A92;;
-    line-height: $audio-bar-height;
   }
 }
 
